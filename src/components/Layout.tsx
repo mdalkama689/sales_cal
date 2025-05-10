@@ -44,7 +44,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <footer className="bg-gray-900 border-t border-gray-800 mt-auto">
         <div className="container mx-auto px-4 py-6">
           <div className="text-center text-sm text-gray-400">
-            <p className="mb-2">GST Calculator Pro &copy; 2025</p>
+         
             <p className="text-xs">
               Disclaimer: The GST calculations provided are estimates based on general CGST and SGST rates.
               Actual tax rates may vary based on specific HSN/SAC codes and product categories.

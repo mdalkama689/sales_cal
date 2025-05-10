@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from './components/Layout';
 import Calculator from './components/Calculator';
 import LocationSelector from './components/LocationSelector';
 import TaxChart from './components/TaxChart';
 import CalculationHistory from './components/CalculationHistory';
 import { CalculatorProvider, useCalculator } from './context/CalculatorContext';
+import MobileShare from './components/share/MobileShare';
+import TabShare from './components/share/TabShare';
 
 const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('en-IN', {
@@ -18,8 +20,27 @@ const formatCurrency = (amount: number) => {
 const CalculatorDashboard: React.FC = () => {
   const { currentCalculation } = useCalculator();
 
+    const [deviceType, setDeviceType] = useState<"big" | "small">("big");
+
+
+  useEffect(() => {
+    const handleResize = () => {
+        setDeviceType(window.innerWidth < 1024 ? "small" : "big");
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {deviceType === "small" ? <MobileShare /> : <TabShare />}
       <div className="lg:col-span-1 space-y-6">
         <LocationSelector />
         <Calculator />
